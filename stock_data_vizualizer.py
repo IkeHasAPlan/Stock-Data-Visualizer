@@ -1,5 +1,7 @@
 # A program that uses stock data to produce graphs and charts based on user constraints
 
+import matplotlib.pyplot as plt
+
 def main():
     run_program = True
     while run_program == True:
