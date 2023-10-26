@@ -3,18 +3,21 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
 import requests
+import json
 #from alpha_vantage.timeseries import TimeSeries
 
 def main():
     run_program = True
     while run_program == True:
+        key = "IZ2BMG7IZUT81I82"
         start_date,end_date = get_date()
         time_series = get_time_series()
        #stock symbols
         symbols = get_stock_symbol()
-        print("Stock Symbols: ")
-        for symbol in symbols:
-            print(symbol)
+        #print("Stock Symbols: ")
+        #for symbol in symbols:
+           # print(symbol)
+        data = retrieve_data(time_series, symbols, key)
     
     
     
@@ -44,6 +47,13 @@ def get_stock_symbol():
 
     return symbol
 
+def retrieve_data(function: str, symbol: str, api_key: str ):
+    url = "fhttps://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={api_key}"
+    response = requests.get(url)
+    data = response.text
+    parsed = json.loads(data)
+    
+    return parsed
 #def get_chart_type():
     #return chart
     
