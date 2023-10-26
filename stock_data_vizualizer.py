@@ -52,7 +52,7 @@ def get_time_series():
     while do_operation == True:
         try: 
             print("Select the Time Series of the chart you want to Generate")
-            print("1. Intraday\n2. Daily\n 3. Weekly\n4. Monthly")
+            print("1. Intraday\n2. Daily\n3. Weekly\n4. Monthly")
             time_series_choice = int(input("Enter the time series option (1, 2, 3, 4): "))
             do_operation = False
         except:
