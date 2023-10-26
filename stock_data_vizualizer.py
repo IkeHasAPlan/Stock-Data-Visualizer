@@ -5,13 +5,8 @@ import matplotlib.pyplot as plt
 def main():
     run_program = True
     while run_program == True:
-        print("Hello World")
 
-        symbol = input("Enter the stock symbol for the company: ")
-        chart_type = input("Enter the chart type you would like: ")
-        time_series_function = input("Enter the time series function you want to use: ")
-        start_date = input("Enter the beginning date in YYYY-MM-DD format: ")
-        end_date = input("Enter the end date in YYYY-MM-DD format: ")
+       
         # ^where program should go
         answer = input("Would you like to view more stock data? (y/n)")
         if answer == "n":
