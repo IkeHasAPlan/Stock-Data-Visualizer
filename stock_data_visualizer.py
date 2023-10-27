@@ -26,14 +26,12 @@ def get_stock_symbol():
         url = f"https://www.alphavantage.co/query?function=LISTING_STATUS&apikey={api_key}"
 
         try:
+            symbol = input("Enter the stock symbol you would like to view")
             response = requests.get(url)
             data = response.json()
-            if "Error Message" in data:
-                print("Error: Unable to retrieve stock symbol.")
-                return None
-            else:
-                symbols = [item['symbol'] for item in data['symbols']]
-                return symbols
+
+            symbols = [item['symbol'] for item in data['symbols']]
+            return symbols
         except requests.exceptions.RequestException as e:
             print(f"Error: {e}")
             return None
