@@ -6,6 +6,8 @@ import pygal
 from datetime import datetime
 import requests
 import json
+import lxml import html
+import webbrowser
 #from alpha_vantage.timeseries import TimeSeries
 
 def main():
@@ -17,15 +19,20 @@ def main():
         time_series = get_time_series()
         start_date, end_date = get_date()
         data = retrieve_data(time_series, symbols, key)
-
-        #pygal code here
-
-        
+        make_graph(data,chartType)        
 
         answer = input("Would you like to view more stock data? (y/n)")
         if answer == "n":
             run_program = False
 
+
+def make_graph(data,chartType):
+    if graphType=="1":
+        result = pygal.Line()
+    elif graphType=="2":
+        result = pygal.Bar()
+
+    result.render_in_browser()
 
 def get_chart_type():
     while True:
