@@ -30,10 +30,10 @@ def main():
 def get_chart_type():
     while True:
         try:
-            graphType = input("Would you like a line graph or a bar graph?")
-            if graphType.Lower()=="line":
+            graphType = input("Would you like a line graph or a bar graph? (1 is line, 2 is bar.)")
+            if graphType=="1":
                 return "line"
-            elif graphType.Lower()=="bar":
+            elif graphType=="2":
                 return "bar"
         except ValueError:
             print("Not a bar type in system")
