@@ -17,6 +17,10 @@ def main():
         symbols = get_stock_symbol()
         data = retrieve_data(time_series, symbols, key)
 
+        #pygal code here
+
+        
+
         answer = input("Would you like to view more stock data? (y/n)")
         if answer == "n":
             run_program = False
