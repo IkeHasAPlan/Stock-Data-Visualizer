@@ -6,7 +6,7 @@ import pygal
 from datetime import datetime
 import requests
 import json
-import lxml import html
+from lxml import html
 import webbrowser
 #from alpha_vantage.timeseries import TimeSeries
 
@@ -27,9 +27,9 @@ def main():
 
 
 def make_graph(data,chartType):
-    if graphType=="1":
+    if chartType=="1":
         result = pygal.Line()
-    elif graphType=="2":
+    elif chartType=="2":
         result = pygal.Bar()
 
     result.render_in_browser()
@@ -37,13 +37,13 @@ def make_graph(data,chartType):
 def get_chart_type():
     while True:
         try:
-            graphType = input("Would you like a line graph or a bar graph? (1 is line, 2 is bar.)")
-            if graphType=="1":
+            chartType = input("Would you like a line graph or a bar graph? (1 is line, 2 is bar.)")
+            if chartType=="1":
                 return "line"
-            elif graphType=="2":
+            elif chartType=="2":
                 return "bar"
         except ValueError:
-            print("Not a bar type in system")
+            print("Not a chart type in system")
 
 
 def get_stock_symbol():
