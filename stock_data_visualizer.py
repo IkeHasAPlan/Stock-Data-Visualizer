@@ -45,7 +45,6 @@ def get_chart_type():
         except ValueError:
             print("Not a chart type in system")
 
-
 def get_stock_symbol():
     while True:
         api_key = "IZ2BMG7IZUT81I82"
