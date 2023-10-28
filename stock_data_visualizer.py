@@ -33,8 +33,8 @@ def get_stock_symbol():
 
             symbols = [item['symbol'] for item in data['symbols']]
             return symbols
-        except requests.exceptions.RequestException as e:
-            print(f"Error: {e}")
+        except ValueError:
+            print("Invalid symbol.")
             return None
         #what am I missing to get this part working?
 
