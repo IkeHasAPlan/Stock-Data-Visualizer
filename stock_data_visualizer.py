@@ -28,10 +28,15 @@ def main():
 
 
 def get_chart_type():
-    try:
-        graphType = input("Would you like a line graph or a bar graph?")
-    except ValueError:
-        
+    while True:
+        try:
+            graphType = input("Would you like a line graph or a bar graph?")
+            if graphType.Lower()=="line":
+                return "line"
+            elif graphType.Lower()=="bar":
+                return "bar"
+        except ValueError:
+            print("Not a bar type in system")
 
 
 def get_stock_symbol():
