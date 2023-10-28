@@ -6,20 +6,44 @@ import pygal
 from datetime import datetime
 import requests
 import json
+from lxml import html
+import webbrowser
 #from alpha_vantage.timeseries import TimeSeries
 
 def main():
     run_program = True
     while run_program:
         key = "IZ2BMG7IZUT81I82"
-        start_date, end_date = get_date()
-        time_series = get_time_series()
         symbols = get_stock_symbol()
+        chartType = get_chart_type()
+        time_series = get_time_series()
+        start_date, end_date = get_date()
         data = retrieve_data(time_series, symbols, key)
+        make_graph(data,chartType)        
 
         answer = input("Would you like to view more stock data? (y/n)")
         if answer == "n":
             run_program = False
+
+
+def make_graph(data,chartType):
+    if chartType=="1":
+        result = pygal.Line()
+    elif chartType=="2":
+        result = pygal.Bar()
+
+    result.render_in_browser()
+
+def get_chart_type():
+    while True:
+        try:
+            chartType = input("Would you like a line graph or a bar graph? (1 is line, 2 is bar.)")
+            if chartType=="1":
+                return "line"
+            elif chartType=="2":
+                return "bar"
+        except ValueError:
+            print("Not a chart type in system")
 
 def get_stock_symbol():
     while True:
@@ -27,16 +51,18 @@ def get_stock_symbol():
         url = f"https://www.alphavantage.co/query?function=LISTING_STATUS&apikey={api_key}"
 
         try:
-            symbol = input("Enter the stock symbol you would like to view")
+            symbol = input("Enter the stock symbol you would like to view: ")
             response = requests.get(url)
-            data = response.json()
 
-            symbols = [item['symbol'] for item in data['symbols']]
-            return symbols
-        except ValueError:
-            print("Invalid symbol.")
-            return None
-        #what am I missing to get this part working?
+            if response.status_code == 200: #HTTP 200
+                data = response.json()
+                symbols = [item['symbol'] for item in data['symbols']]
+                return symbols
+            else:
+                print(f"Error code:{response.status_code}")
+                print(f"More info: {response.content}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
 
 def retrieve_data(function: str, symbol: str, api_key: str ):
     url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={api_key}"
