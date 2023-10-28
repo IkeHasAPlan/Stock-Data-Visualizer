@@ -2,6 +2,7 @@
 # Basis of code made by Issac.
 
 import matplotlib.pyplot as plt
+import pygal
 from datetime import datetime
 import requests
 import json
@@ -28,14 +29,17 @@ def get_stock_symbol():
         try:
             symbol = input("Enter the stock symbol you would like to view")
             response = requests.get(url)
-            data = response.json()
 
-            symbols = [item['symbol'] for item in data['symbols']]
-            return symbols
+            if response.status_code == 200:
+                data = response.json()
+                symbols = [item['symbol'] for item in data['symbols']]
+                return symbols
+            else:
+                print(f"Error code:{response.status_code}")
         except requests.exceptions.RequestException as e:
             print(f"Error: {e}")
-            return None
-        #what am I missing to get this part working?
+
+        #what am I missing to get this part working? I know HTTP 200 needs to be used.
 
 def retrieve_data(function: str, symbol: str, api_key: str ):
     url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={api_key}"
