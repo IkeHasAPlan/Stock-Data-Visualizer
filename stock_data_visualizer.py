@@ -52,7 +52,7 @@ def get_stock_symbol():
         url = f"https://www.alphavantage.co/query?function=LISTING_STATUS&apikey={api_key}"
 
         try:
-            symbol = input("Enter the stock symbol you would like to view")
+            symbol = input("Enter the stock symbol you would like to view: ")
             response = requests.get(url)
 
             if response.status_code == 200: #HTTP 200
