@@ -61,6 +61,7 @@ def get_stock_symbol():
                 return symbols
             else:
                 print(f"Error code:{response.status_code}")
+                print(f"More info: {response.content}")
         except requests.exceptions.RequestException as e:
             print(f"Error: {e}")
 
