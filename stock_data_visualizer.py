@@ -12,9 +12,10 @@ def main():
     run_program = True
     while run_program:
         key = "IZ2BMG7IZUT81I82"
-        start_date, end_date = get_date()
-        time_series = get_time_series()
         symbols = get_stock_symbol()
+        chartType = get_chart_type()
+        time_series = get_time_series()
+        start_date, end_date = get_date()
         data = retrieve_data(time_series, symbols, key)
 
         #pygal code here
@@ -25,6 +26,14 @@ def main():
         if answer == "n":
             run_program = False
 
+
+def get_chart_type():
+    try:
+        graphType = input("Would you like a line graph or a bar graph?")
+    except ValueError:
+        
+
+
 def get_stock_symbol():
     while True:
         api_key = "IZ2BMG7IZUT81I82"
@@ -34,7 +43,7 @@ def get_stock_symbol():
             symbol = input("Enter the stock symbol you would like to view")
             response = requests.get(url)
 
-            if response.status_code == 200:
+            if response.status_code == 200: #HTTP 200
                 data = response.json()
                 symbols = [item['symbol'] for item in data['symbols']]
                 return symbols
@@ -42,8 +51,6 @@ def get_stock_symbol():
                 print(f"Error code:{response.status_code}")
         except requests.exceptions.RequestException as e:
             print(f"Error: {e}")
-
-        #what am I missing to get this part working? I know HTTP 200 needs to be used.
 
 def retrieve_data(function: str, symbol: str, api_key: str ):
     url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={api_key}"
